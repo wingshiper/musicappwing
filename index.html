@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music player</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="main">
+        <div id="app">
+            <!-- baclground -->
+            <div class="background" style="background-image: url('./img/img1.jpg');"></div>
+            <!-- trinh phat nhac -->
+            <div class="player ">
+                <div class="main-song">
+                    <div class="img-songCurrent" style="background-image: url('./img/img1.jpg');"></div>
+                    <div class="progress"></div>
+                    <audio src="" class="audio"></audio>
+                    <div class="curentSong-Time">
+                        <div class="seek-time">0:00</div>
+                        <div class="duration">4:00</div>
+                    </div>
+                    <div class="status-song ">
+                        <i class="status-song-icon status-song_volumOn fas fa-volume-off" ></i>
+                        <i class="status-song-icon status-song_volumOff fas fa-volume-mute" ></i>
+                        <i class="status-song-icon status-song_heart-like fas fa-heart"></i>
+                        <i class="status-song-icon status-song_heart-unlike far fa-heart"></i>
+                        <i class="status-song-icon status-song_menu fas fa-ellipsis-v"></i>
+                        <div class="song-Setting">
+                            <div>Xóa</div>
+                            <div>Thêm vào danh sách</div>
+                        </div>
+                    </div>
+                    <div class="infor-songCurrent">
+                        <h4>Huynh Gia Minh</h4>
+                        <p>Huynh Gia Minh</p>
+                        <div class="control">
+                            <div class="btn btn-repeat">
+                              <i class="fas fa-redo"></i>
+                            </div>
+                            <div class="btn btn-prev">
+                              <i class="fas fa-step-backward"></i>
+                            </div>
+                            <div class="btn btn-toggle-play">
+                              <i class="fas fa-pause icon-pause"></i>
+                              <i class="fas fa-play icon-play"></i>
+                            </div>
+                            <div class="btn btn-next">
+                              <i class="fas fa-step-forward"></i>
+                            </div>
+                            <div class="btn btn-random">
+                              <i class="fas fa-random"></i>
+                            </div>
+                          </div>
+                    </div>
+                    
+                    <!-- List bai hat -->
+                </div>
+                <div class="playList">
+                    <div class="song ">
+                        <div class="img-song" style="background-image: url('./img/img1.jpg');"></div>
+                        <div class="song-infor">
+                            <h4 class="name-song">Huynh Gia Minh</h4>
+                            <p class="singer">Huynh Gia Minh</p>
+                        </div>
+                        <div class="song-time">4:00</div>
+                        <div class="spectrum-code">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                            <div class="setting-wrap ">
+                                <i class="fas fa-ellipsis-v status-song_menu"></i>
+                                <div class="song-Setting">
+                                    <div>Xóa</div>
+                                    <div>Thêm vào danh sách</div>
+                                </div>
+                            </div>
+                    </div>
+                
+
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <script src="./main.js"></script>
+</body>
+</html>
