@@ -6,14 +6,26 @@ const singer = document.querySelector('.infor-songCurrent p')
 const background = document.querySelector('.background');
 const imgSong = document.querySelector('.img-songCurrent')
 const progress = document.querySelector('.progress');
+const progressWrap = document.querySelector('.progress-wrap')
+const seekTime = document.querySelector('.seek-time');
+const songHasbeenSing = [];
+const statusSong = document.querySelector('.status-song');
 
+const volumeBtn = document.querySelector('.status-song-volume');
 const playBtn = document.querySelector('.btn-toggle-play')
 const duration = document.querySelector('.duration');
 const nextBtn = document.querySelector('.btn-next');
 const randomBtn = document.querySelector('.btn-random')
 const prevBtn = document.querySelector('.btn-prev');
+const repeatBtn = document.querySelector('.btn-repeat')
+const likeBtn = document.querySelector('.status-song-like')
+const optionsBtn = document.querySelector('.status-song_menu');
 var app = {
+    isRepeat: false,
     isPlaying: false,
+    isMute: false,
+    isLike: false,
+    isMenu: false,
     isRamdom: false,
     currentIndex: 0,
     songs: [
@@ -86,7 +98,6 @@ var app = {
 
         },
     ],
-
     defindproperties: function() {
         Object.defineProperty(this,'currentSong',{
             get: function(){
@@ -117,10 +128,7 @@ var app = {
         return (hours !== 0 ? hours + ":" : "") + minutes + ":" + seconds;
     },
 
-    updateProgres: function(){
-       progress.style.left = 0;
-       console.log({progress})
-    },
+
 
     loadCurrentSong: function(){
         heading.textContent = this.currentSong.name;
@@ -146,10 +154,33 @@ var app = {
         }
         this.loadCurrentSong();
     },
-
+    randomSong: function(){
+        var checkSong = true;
+        do{
+            const songHasRandom = Math.floor(Math.random() *(this.songs.length - 0) + 0);
+            for (var i of songHasbeenSing){
+                if (i === songHasRandom){
+                    checkSong = false;
+                    break;
+                }else {
+                    checkSong = true;
+                }
+            }
+            if (checkSong){
+                app.currentIndex = songHasRandom;
+                songHasbeenSing.push(songHasRandom);
+                app.loadCurrentSong();
+            }
+            if (songHasbeenSing.length >= 10){
+               songHasbeenSing.splice(0, songHasbeenSing.length)
+            }   
+        }while(checkSong == false);
+            
+            
+    },
     render: function(){
-        const htmls = this.songs.map( function(song) {
-            return `<div class="song">
+        const htmls = this.songs.map( function(song,index) {
+            return `<div class="song ${index === app.currentIndex ? 'active' : ''}" date-index= "${index}" >
             <div class="img-song" style="background-image: url(${song.img});"></div>
             <div class="song-infor">
                 <h4 class="name-song">${song.name}</h4>
@@ -179,64 +210,153 @@ var app = {
         playBtn.onclick = function(){
             if (app.isPlaying){
                 audio.pause();
-                document.querySelector('.player').classList.remove('playing')
             }else{
                 audio.play();
-                document.querySelector('.player').classList.add('playing')
             }
 
         }
         audio.onplay = function(){
             app.isPlaying = true;
+            document.querySelector('.player').classList.add('playing')
+
         }
         audio.onpause = function (){
             app.isPlaying = false
+            document.querySelector('.player').classList.remove('playing')
+
         }
         // when ended song
 
         audio.onended = function(){
-            app.nextSong();
-            audio.play();
-            document.querySelector('.player').classList.add('playing')
+        
+            if (app.isRamdom){
+                app.randomSong();
+                audio.play()
+            }else if(app.isRepeat){
+                audio.play();
+            }
+            else {
+                app.nextSong();
+                audio.play();
+            }
+            app.render();
+
         },
+
         // when clikc nextSong Btn
         nextBtn.onclick = function(){
             if ( app.isRamdom){
                 app.randomSong();
                 audio.play();
+            }else if(app.isRepeat){
+                audio.play();
             }else{
                 app.nextSong();
                 audio.play();
             }
-            document.querySelector('.player').classList.add('playing')
-            
+            app.render();
+
         }
         //  when user click on prevBtn
         prevBtn.onclick = function(){
             app.prevSong();
             audio.play();
+            app.render();
             document.querySelector('.player').classList.add('playing')
         }
         // when user click on ramdomBtn
-       
+        randomBtn. onclick = function () {
+            if (app.isRamdom){
+                randomBtn.classList.remove('active');
+                app.isRamdom = false;
+            }else {
+                randomBtn.classList.add('active');
+                app.    isRamdom = true;
+            }
+        }
+        // when user click on repeatBtn
+        repeatBtn.onclick = function () {
+            if (app.isRepeat){
+                repeatBtn.classList.remove('active');
+                app.isRepeat = false;
+            }else {
+                repeatBtn.classList.add('active');
+                app.isRepeat = true;
+            }
+        }
+
+        volumeBtn.onclick = function(){
+            if (app.isMute){
+                statusSong.classList.remove('mute');
+                app.isMute = false;
+                audio.volume = 1;
+            }else{
+                statusSong.classList.add('mute');
+                app.isMute = true; 
+                audio.volume = 0;
+            }
+        }
+
+        likeBtn.onclick = function(){
+            if (app.isLike){
+                statusSong.classList.remove('like');
+                app.isLike = false;
+
+            }else{
+                statusSong.classList.add('like');
+                app.isLike = true; 
+            }
+        }
+        optionsBtn.onclick = function(){
+            if (app.isMenu){
+                app.isMenu = false;
+                optionsBtn.classList.remove('click')
+
+            }else {
+                optionsBtn.classList.add('click')
+                app.isMenu = true;
+            }
+        }
+
+
+        playList.onclick = function(e) {
+            const songNode =e.target.closest('.song:not(.active)')
+            if (songNode || e.target.closest('.setting-wrap')){
+                if (songNode){
+                   app.currentIndex = Number(songNode.getAttribute('date-index'));
+                   app.loadCurrentSong();
+                   app.render();
+                   audio.play();
+                }
+            }
+        }
         // update progress
         audio.ontimeupdate = function(){
+            var time = audio.currentTime;
+            seekTime.textContent = app.setDuration(time);
             if (audio.duration){
                 const progressCurrent = (audio.currentTime / audio.duration ) * 100;
                 progress.style.width = `${progressCurrent}%`;
-               
             }
         }
+
+        progressWrap.onclick = function(e) {     
+            const width = e.offsetX;
+            const time = (width / 400) * audio.duration;
+            progress.style.width = width +'px';
+            audio.currentTime = time;
+            seekTime.textContent = app.setDuration(time);
+        }
+
     },
     start: function(){
+        songHasbeenSing.push(this.currentIndex);
         this.setDuration();
         this.defindproperties();
         this.loadDuration();
         this.loadCurrentSong();
         this.render()
         this.handleEvent();
-        this.updateProgres();
-
     }
 }
 

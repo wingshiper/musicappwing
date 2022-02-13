@@ -21,17 +21,23 @@
             <div class="player ">
                 <div class="main-song">
                     <div class="img-songCurrent" style="background-image: url('./img/img1.jpg');"></div>
-                    <div class="progress"></div>
+                    <div class="progress-wrap" style="width: 400px;height: 4px; position: absolute; padding-top: 3px; cursor: pointer;">
+                        <div class="progress"></div>
+                    </div>
                     <audio src="" class="audio"></audio>
                     <div class="curentSong-Time">
                         <div class="seek-time">0:00</div>
                         <div class="duration">4:00</div>
                     </div>
                     <div class="status-song ">
-                        <i class="status-song-icon status-song_volumOn fas fa-volume-off" ></i>
-                        <i class="status-song-icon status-song_volumOff fas fa-volume-mute" ></i>
-                        <i class="status-song-icon status-song_heart-like fas fa-heart"></i>
-                        <i class="status-song-icon status-song_heart-unlike far fa-heart"></i>
+                        <div class="status-song-volume">
+                            <i class=" status-song_volumOn fas fa-volume-off" ></i>
+                            <i class=" status-song_volumOff fas fa-volume-mute" ></i>
+                        </div>
+                        <div class="status-song-like">
+                            <i class="status-song-like status-song_heart-like fas fa-heart"></i>
+                            <i class="status-song-like status-song_heart-unlike far fa-heart"></i>
+                        </div>
                         <i class="status-song-icon status-song_menu fas fa-ellipsis-v"></i>
                         <div class="song-Setting">
                             <div>Xóa</div>
@@ -64,7 +70,7 @@
                     <!-- List bai hat -->
                 </div>
                 <div class="playList">
-                    <div class="song ">
+                    <div class="song">
                         <div class="img-song" style="background-image: url('./img/img1.jpg');"></div>
                         <div class="song-infor">
                             <h4 class="name-song">Huynh Gia Minh</h4>

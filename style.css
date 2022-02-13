@@ -62,11 +62,11 @@ html {
 
 
 .curentSong-Time{
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
 }
 .curentSong-Time > div{
-    margin: 0 24px;
     font-weight: 100;
 }
 
@@ -75,15 +75,19 @@ html {
     margin:  24px 0;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     position: relative;
 }
 
-.status-song >.status-song-icon {
+.status-song >.status-song-volume,
+.status-song >.status-song-like ,
+.status-song > .status-song-icon{
     color: #000;
     font-size: 24px;
     margin: 0 24px;
     cursor: pointer;
 }
+
 .song-Setting{
     position: absolute;
     text-align: left;
@@ -92,14 +96,17 @@ html {
     border-radius: 5px;
     animation: fadeIn 0.2s ease-in-out ;
     display: none;
+    cursor: pointer;
+    z-index: 99999;
+
 }
 .status-song .song-Setting {
     right: -75px;
-    top: 140%;
+    top: 100%;
 }
 .setting-wrap .song-Setting{
-    top: 85%;
-    right: -62px;
+    top: 75%;
+    right: -50px;
 }
 
 .status-song_menu.click  ~  .song-Setting{
@@ -156,7 +163,6 @@ html {
     margin-top: 12px;
 }
 /* Control */
-
 .control {
     display: flex;
     align-items: center;
@@ -164,18 +170,18 @@ html {
     padding: 18px 0 8px 0;
   }
   
-  .control .btn {
+.control .btn {
     color: #000;
     padding: 18px;
     font-size: 22px;
     cursor: pointer;
   }
   
-  .control .btn.active {
+.control .btn.active {
     color: #ddd;
   }
   
-  .control .btn-toggle-play {
+.control .btn-toggle-play {
     width: 56px;
     height: 56px;
     font-size: 24px;
@@ -184,11 +190,11 @@ html {
     align-items: center;
     justify-content: center;
   }
-  .player .icon-pause {
+.player .icon-pause {
     display: none;
   }
   
-  .player.playing .icon-pause {
+.player.playing .icon-pause {
     display: inline-block;
   }
   
@@ -211,6 +217,11 @@ html {
     position: relative;
     border-radius: 5px;
 } 
+
+.song:active{
+    opacity: 0.7;
+}
+
 .song:hover{
     background-color: rgba(0, 0, 0, 0.1);
     cursor: pointer;
@@ -257,6 +268,9 @@ html {
 .setting-wrap {
     margin-right: 40px;
     color: 	rgba(40,40,40,0.8);
+}
+.setting-wrap.click .song-Setting{
+    display: block;
 }
 
 .setting-options{
@@ -308,6 +322,9 @@ html {
     left: 0;
     animation: spectrum linear 2s infinite ;
 
+}
+.song.active{
+    background: rgba(0, 0, 0, 0.1);
 }
 .song.active .spectrum-code{
     display: flex;
