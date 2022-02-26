@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./reponsive.css">
+    <script src="https://unpkg.com/wavesurfer.js"></script>
 </head>
 <body>
     <div id="main">
@@ -21,12 +23,15 @@
             <div class="player ">
                 <div class="main-song">
                     <div class="img-songCurrent" style="background-image: url('./img/img1.jpg');"></div>
-                    <div class="progress-wrap" style="width: 400px;height: 4px; position: absolute; padding-top: 3px; cursor: pointer;">
+                    <div class="progress-wrap">
                         <div class="progress"></div>
                     </div>
                     <audio src="" class="audio"></audio>
                     <div class="curentSong-Time">
                         <div class="seek-time">0:00</div>
+                        <!-- <div class="progress-mobile-wrap">
+                            <div class="progress-mobile"></div>
+                        </div> -->
                         <div class="duration">4:00</div>
                     </div>
                     <div class="status-song ">
@@ -47,6 +52,7 @@
                     <div class="infor-songCurrent">
                         <h4>Huynh Gia Minh</h4>
                         <p>Huynh Gia Minh</p>
+                        <div id="waveform"></div>
                         <div class="control">
                             <div class="btn btn-repeat">
                               <i class="fas fa-redo"></i>
@@ -90,9 +96,6 @@
                                 </div>
                             </div>
                     </div>
-                
-
-                    
                 </div>
                 
             </div>

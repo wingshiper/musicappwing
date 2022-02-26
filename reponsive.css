@@ -1,0 +1,123 @@
+@media (max-width : 480px ) and (min-width: 320px) {
+    .main-song{
+        width: 100%;
+        margin: 0;
+        background-color: rgba(232, 238, 237, 0);
+    }
+    .playList {
+        width: 100%;
+        
+        margin-top: 450px;
+        transform: translateX(0);
+    }
+    .player{
+        flex-wrap: wrap;
+    }
+    .song{
+        width: calc(100% - 8px);
+        padding: 0;
+        margin: 12px 4px;
+    }
+    .img-songCurrent{
+        margin-top: 24px; 
+        margin-bottom: 12px; 
+        width:200px;
+        height: 200px;
+        background-position: center;
+        background-size: contain;
+        border-radius: 50%;
+    }
+    .curentSong-Time{
+        margin-top: 24px;
+    }
+    .status-song {
+        display: none;
+    }
+    .curentSong-Time > div{
+        margin: 0 12px;
+    }
+    .progress-wrap{
+        width: calc(100% - 24px);
+    }
+    .progress{
+        margin: 0 12px;
+    }
+    .status-song .song-Setting {
+        right: 4px;
+        top: 100%;
+    }
+    .song-Setting::after{
+        left: 82%;
+    }
+    .infor-songCurrent {
+
+        margin-top: 12px;
+        padding-bottom: 12px;
+    }
+}
+
+
+/* Tablet & Low Resolution */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .main-song{
+        width: 100%;
+        display: flex;
+        background-color: #1C1C1C;
+        margin: 0;
+        color: #F8F8FF;
+    }
+    .control .btn{
+        color: #F8F8FF;
+
+    }
+    .playList {
+        width: 100%;
+        margin-top: 350px;
+        transform: translateX(0);
+    }
+    .player{
+        flex-wrap: wrap;
+    }
+    .song{
+        width: calc(100% - 48px);
+        padding: 0;
+        margin: 12px 24px;
+    }
+    .img-songCurrent{
+        width: 250px;
+        height: 250px;
+        background-position: center;
+        background-size: cover;
+        margin: 0;
+    }
+    .curentSong-Time{
+        display: none;
+    }
+    .status-song {
+        display: none;
+    }
+    .curentSong-Time > div{
+        margin: 0 12px;
+    }
+    .progress-wrap{
+       display: none;
+    }
+    .progress{
+        margin: 0 12px;
+    }
+    .status-song .song-Setting {
+        right: 4px;
+        top: 100%;
+    }
+    .song-Setting::after{
+        left: 82%;
+    }
+    #waveform{
+        display: flex;
+        flex: 1;
+    }
+    .infor-songCurrent {
+        flex: 1;
+    }
+}

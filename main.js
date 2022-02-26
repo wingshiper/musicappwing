@@ -20,7 +20,16 @@ const prevBtn = document.querySelector('.btn-prev');
 const repeatBtn = document.querySelector('.btn-repeat')
 const likeBtn = document.querySelector('.status-song-like')
 const optionsBtn = document.querySelector('.status-song_menu');
+
+var wavesurfer = WaveSurfer.create({
+    container: '#waveform',
+    waveColor: 'violet',
+    progressColor: 'purple'
+});
+wavesurfer.load('./music/DeVuong-DinhDungACV-7121634.mp3');
+
 var app = {
+    
     isRepeat: false,
     isPlaying: false,
     isMute: false,
@@ -29,6 +38,7 @@ var app = {
     isRamdom: false,
     currentIndex: 0,
     songs: [
+       
         {
             name: 'Đế Vương',
             singer:'Đình Dũng',
@@ -36,6 +46,7 @@ var app = {
             path: './music/DeVuong-DinhDungACV-7121634.mp3',
             
         },
+        
         {
             name: 'Ái Nộ',
             singer:'Masew fr Khôi Vũ',
@@ -128,7 +139,7 @@ var app = {
         return (hours !== 0 ? hours + ":" : "") + minutes + ":" + seconds;
     },
 
-
+  
 
     loadCurrentSong: function(){
         heading.textContent = this.currentSong.name;
@@ -178,6 +189,16 @@ var app = {
             
             
     },
+
+    scrollIntoView: function() {
+        document.querySelector('.song.active').scrollIntoView(
+            {
+                behavior: 'smooth',
+                block: 'nearest',
+            }
+        )
+    },
+
     render: function(){
         const htmls = this.songs.map( function(song,index) {
             return `<div class="song ${index === app.currentIndex ? 'active' : ''}" date-index= "${index}" >
@@ -205,6 +226,7 @@ var app = {
     },
 
     
+
     handleEvent: function(){
         // xu ly khi click 
         playBtn.onclick = function(){
@@ -213,17 +235,52 @@ var app = {
             }else{
                 audio.play();
             }
-
+        }
+        // Su kien tren dien thoai
+        const width = window.innerWidth;
+        var cdThumb;
+        if (width > 320 && width < 480 ){
+           cdThumb =  imgSong.animate([
+                {transform : 'rotate(360deg)'}
+            ],
+            {
+                duration: 10000,
+                iterations: Infinity,
+            }
+            )
+            cdThumb.pause()
+            const WidthSong = imgSong.offsetWidth 
+            window.onscroll = function() {
+                
+                const scroll = window.scrollY;
+                
+                const scrollCurrent = WidthSong - scroll;
+                if (scrollCurrent > 0 ){
+                    imgSong.style.width = scrollCurrent + 'px';
+                    imgSong.style.height = scrollCurrent + 'px';
+                    document.querySelector('.progress-wrap').style.display = 'flex'
+                    document.querySelector('.curentSong-Time').style.display = 'flex'
+                    imgSong.style.opacity = scrollCurrent / WidthSong ;
+ 
+                    document.querySelector('.main-song').style.background = `rgba(232, 238, 237, ${scroll/scrollCurrent})`
+                }else {
+                    imgSong.style.width = 0;
+                    imgSong.style.height = 0;
+                    document.querySelector('.progress-wrap').style.display = 'none'
+                    document.querySelector('.curentSong-Time').style.display = 'none'
+                }
+                // console.log(scroll)
+            }
         }
         audio.onplay = function(){
             app.isPlaying = true;
             document.querySelector('.player').classList.add('playing')
-
+            cdThumb.play()
         }
         audio.onpause = function (){
             app.isPlaying = false
             document.querySelector('.player').classList.remove('playing')
-
+            cdThumb.pause()
         }
         // when ended song
 
@@ -240,7 +297,7 @@ var app = {
                 audio.play();
             }
             app.render();
-
+            app.scrollIntoView();
         },
 
         // when clikc nextSong Btn
@@ -255,7 +312,7 @@ var app = {
                 audio.play();
             }
             app.render();
-
+            app.scrollIntoView();
         }
         //  when user click on prevBtn
         prevBtn.onclick = function(){
@@ -263,6 +320,7 @@ var app = {
             audio.play();
             app.render();
             document.querySelector('.player').classList.add('playing')
+            app.scrollIntoView();
         }
         // when user click on ramdomBtn
         randomBtn. onclick = function () {
@@ -355,8 +413,9 @@ var app = {
         this.defindproperties();
         this.loadDuration();
         this.loadCurrentSong();
-        this.render()
+        this.render();
         this.handleEvent();
+        // this.scrollIntoView();
     }
 }
 
