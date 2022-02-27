@@ -38,6 +38,12 @@ var app = {
     isRamdom: false,
     currentIndex: 0,
     songs: [
+        {
+            name: 'Lâu Đài Tình Ái',
+            singer: 'Kiều Ngân',
+            img :'./img/img11.jpg',
+            path : './music/LauDaiTinhAi-CamLy-QuocDai_h3.mp3'
+        },
        
         {
             name: 'Đế Vương',

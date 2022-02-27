@@ -45,6 +45,7 @@ html {
 .img-songCurrent{
    display: flex;
    margin: auto;
+   background-size: cover;
     width: 400px;
     height: 400px;
 }
